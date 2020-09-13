@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Pazyn.StartupTasks
 {
@@ -8,12 +7,9 @@ namespace Pazyn.StartupTasks
     {
         public static IStartupTaskBuilder AddStartupTasks(this IServiceCollection services)
         {
-            var startupTaskBuilder = new StartupTaskBuilder(services);
-            services.TryAddSingleton<IStartupTaskBuilder>(startupTaskBuilder);
             services.AddHostedService<StartupTaskHostedService>();
-
             services.Configure<StartupTaskContext>(options => { });
-            return startupTaskBuilder;
+            return new StartupTaskBuilder(services);
         }
 
         public static IHealthChecksBuilder AddStartupTasks(this IHealthChecksBuilder builder) =>

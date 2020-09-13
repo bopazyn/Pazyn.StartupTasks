@@ -13,12 +13,13 @@ namespace Pazyn.StartupTasks.Tests
             var context = new DefaultHttpContext();
             context.Response.Body = new MemoryStream();
 
+            
             var startupTaskContext = new StartupTaskContext();
             startupTaskContext.RegisterTask();
             startupTaskContext.RegisterTask();
 
-            var middleware = new StartupTasksMiddleware(startupTaskContext, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.Invoke(context);
+            var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
+            await middleware.ProcessRequest(context, startupTaskContext);
 
             Assert.Equal(503, context.Response.StatusCode);
         }
@@ -35,8 +36,8 @@ namespace Pazyn.StartupTasks.Tests
             startupTaskContext.MarkTaskAsComplete();
             startupTaskContext.MarkTaskAsFailed();
 
-            var middleware = new StartupTasksMiddleware(startupTaskContext, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.Invoke(context);
+            var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
+            await middleware.ProcessRequest(context, startupTaskContext);
 
             Assert.Equal(500, context.Response.StatusCode);
         }
@@ -53,8 +54,8 @@ namespace Pazyn.StartupTasks.Tests
             startupTaskContext.MarkTaskAsComplete();
             startupTaskContext.MarkTaskAsComplete();
 
-            var middleware = new StartupTasksMiddleware(startupTaskContext, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.Invoke(context);
+            var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
+            await middleware.ProcessRequest(context, startupTaskContext);
 
             Assert.Equal(200, context.Response.StatusCode);
         }

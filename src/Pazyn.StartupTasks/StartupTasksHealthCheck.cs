@@ -1,26 +1,27 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Options;
 
 namespace Pazyn.StartupTasks
 {
     internal class StartupTasksHealthCheck : IHealthCheck
     {
-        private StartupTaskContext Context { get; }
+        private IOptions<StartupTaskContext> Context { get; }
 
-        public StartupTasksHealthCheck(StartupTaskContext context)
+        public StartupTasksHealthCheck(IOptions<StartupTaskContext> context)
         {
             Context = context;
         }
 
         public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
-            if (!Context.HaveAllTasksFinished)
+            if (!Context.Value.HaveAllTasksFinished)
             {
                 return Task.FromResult(HealthCheckResult.Unhealthy("Startup tasks have not finished"));
             }
 
-            if (Context.HasAnyTaskFailed)
+            if (Context.Value.HasAnyTaskFailed)
             {
                 return Task.FromResult(HealthCheckResult.Unhealthy("Startup task failed"));
             }

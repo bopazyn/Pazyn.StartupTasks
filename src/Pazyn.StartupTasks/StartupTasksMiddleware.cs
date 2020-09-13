@@ -1,21 +1,28 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 
 namespace Pazyn.StartupTasks
 {
     internal class StartupTasksMiddleware
     {
-        private StartupTaskContext Context { get; }
+        private IOptions<StartupTaskContext> Context { get; }
         private RequestDelegate Next { get; }
 
-        public StartupTasksMiddleware(StartupTaskContext context, RequestDelegate next)
+        public StartupTasksMiddleware(IOptions<StartupTaskContext> context, RequestDelegate next)
         {
             Context = context;
             Next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public Task Invoke(HttpContext httpContext)
+        {
+            var startupTaskContext = Context.Value;
+            return ProcessRequest(httpContext, startupTaskContext);
+        }
+
+        public async Task ProcessRequest(HttpContext httpContext, StartupTaskContext startupTaskContext)
         {
             var endpoint = httpContext.GetEndpoint();
             if (endpoint != null && endpoint.Metadata.GetMetadata<StartupTaskMetadata>() == null)
@@ -24,9 +31,9 @@ namespace Pazyn.StartupTasks
                 return;
             }
 
-            if (Context.HaveAllTasksFinished)
+            if (startupTaskContext.HaveAllTasksFinished)
             {
-                if (Context.HasAnyTaskFailed)
+                if (startupTaskContext.HasAnyTaskFailed)
                 {
                     httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 }

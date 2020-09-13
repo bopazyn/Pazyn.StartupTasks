@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +10,7 @@ using Microsoft.Extensions.Options;
 
 namespace Pazyn.StartupTasks
 {
-    internal class StartupTaskHostedService : BackgroundService
+    internal class StartupTaskHostedService : IHostedService
     {
         private IServiceProvider ServiceProvider { get; }
         private ILogger<StartupTaskHostedService> Logger { get; }
@@ -21,9 +23,11 @@ namespace Pazyn.StartupTasks
             StartupTaskContextOptions = startupTaskContextOptions;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        private CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
+
+        private async Task RunStartupItems(IEnumerable<StartupTaskItem> startupTaskItems, CancellationToken stoppingToken)
         {
-            foreach (var startupTaskItem in StartupTaskContextOptions.Value.Items)
+            foreach (var startupTaskItem in startupTaskItems)
             {
                 try
                 {
@@ -48,5 +52,14 @@ namespace Pazyn.StartupTasks
                 }
             }
         }
+
+        public async Task StartAsync(CancellationToken cancellationToken)
+        {
+            await RunStartupItems(StartupTaskContextOptions.Value.Items.Where(x => x.IsBlocking), cancellationToken);
+            // ReSharper disable once UnusedVariable
+            var notAwaitedTask = RunStartupItems(StartupTaskContextOptions.Value.Items.Where(x => !x.IsBlocking), CancellationTokenSource.Token);
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
     }
 }

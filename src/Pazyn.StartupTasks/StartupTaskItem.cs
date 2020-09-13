@@ -13,6 +13,7 @@ namespace Pazyn.StartupTasks
         }
 
         public String DisplayName { get; set; }
+        public Boolean IsBlocking { get; set; }
 
         public void Decorate<TDec>() where TDec : IStartupTask =>
             Decorate((sp, job) => ActivatorUtilities.CreateInstance<TDec>(sp, job));
