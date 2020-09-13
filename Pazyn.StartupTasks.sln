@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E2D4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.Example", "samples\Pazyn.StartupTasks.Example\Pazyn.StartupTasks.Example.csproj", "{32224CC5-0B89-4AFC-9302-92493F629D6B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.EntityFrameworkCore", "src\Pazyn.StartupTasks.EntityFrameworkCore\Pazyn.StartupTasks.EntityFrameworkCore.csproj", "{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.AspNetCore", "src\Pazyn.StartupTasks.AspNetCore\Pazyn.StartupTasks.AspNetCore.csproj", "{AE36F420-A797-403F-ABFB-71C6DB107DD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{32224CC5-0B89-4AFC-9302-92493F629D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32224CC5-0B89-4AFC-9302-92493F629D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32224CC5-0B89-4AFC-9302-92493F629D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE36F420-A797-403F-ABFB-71C6DB107DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE36F420-A797-403F-ABFB-71C6DB107DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE36F420-A797-403F-ABFB-71C6DB107DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE36F420-A797-403F-ABFB-71C6DB107DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +53,8 @@ Global
 		{C029B721-F8A7-4CF1-A5B2-59ED2966F01B} = {CB1EE82E-8B09-4B61-A511-D801F1EA1AC8}
 		{B3FD9B6B-FD35-437F-9192-BB00E40DA0DC} = {757B9CE7-2A00-4E25-8A91-E549D129C6DA}
 		{32224CC5-0B89-4AFC-9302-92493F629D6B} = {E2D499FB-4214-48A3-AFB0-0C4431A0A482}
+		{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640} = {CB1EE82E-8B09-4B61-A511-D801F1EA1AC8}
+		{AE36F420-A797-403F-ABFB-71C6DB107DD3} = {CB1EE82E-8B09-4B61-A511-D801F1EA1AC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4BA114A-4808-41A8-9CCD-AECAB8083F3F}
