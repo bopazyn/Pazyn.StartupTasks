@@ -1,36 +1,15 @@
 # Pazyn.StartupTasks
 
-The work was inpired by:
-- [Andrew Lock](https://github.com/andrewlock) and his [blog](https://andrewlock.net/)
+`Pazyn.StartupTasks` is library for running tasks when application is starting. For example, you can migrate your database, validate configuration, synchronize permission or populate cache.
+Startup tasks can be configured separately to work in two modes: blocking and nonblocking. Blocking means that all request are blocked until the tasks have completed. Second mode guards routes that are marked with medod `RequireStartupTask` producing 503 HTTP response code until tasks have completed.
 
-## Example
 
-Detail explanation will be available soon.
+## Minimal working example
+
 ```
-public class AlwaysTrueStartupTask : IStartupTask
+public class SillyStartupTask : IStartupTask
 {
     public Task<Boolean> Run(CancellationToken cancellationToken) => Task.FromResult(true);
-}
-
-public class AlwaysFalseStartupTask : IStartupTask
-{
-    public Task<Boolean> Run(CancellationToken cancellationToken) => Task.FromResult(false);
-}
-
-public class DelayStartupTaskDecorator : IStartupTask
-{
-    private IStartupTask InnerStartupTask { get; }
-
-    public DelayStartupTaskDecorator(IStartupTask innerStartupTask)
-    {
-        InnerStartupTask = innerStartupTask;
-    }
-
-    public async Task<Boolean> Run(CancellationToken cancellationToken)
-    {
-        await Task.Delay(500, cancellationToken);
-        return await InnerStartupTask.Run(cancellationToken);
-    }
 }
 
 public class Startup
@@ -41,9 +20,7 @@ public class Startup
             .AddStartupTasks();
 
         services.AddStartupTasks()
-            .AddStartupTask<AlwaysTrueStartupTask>()
-            .AddStartupTask<AlwaysFalseStartupTask>()
-            .Decorate<DelayStartupTaskDecorator>();
+            .AddStartupTask<SillyStartupTask>();
     }
 
     public void Configure(IApplicationBuilder app, IConfiguration configuration)
@@ -53,9 +30,23 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapHealthChecks("/health");
+
             endpoints.MapGet("/", context => context.Response.WriteAsync("Hello World!"))
                 .RequireStartupTask();
         });
     }
 }
 ```
+
+
+## Acknowledgements
+
+The work was inspired by:
+- [Andrew Lock](https://github.com/andrewlock) and his [blog](https://andrewlock.net/)
+
+Look at his blog posts:
+1. https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-part-1/
+1. https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-part-2/
+1. https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-part-3-feedback/
+1. https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-part-4-using-health-checks/
+1. https://andrewlock.net/running-async-tasks-on-app-startup-in-asp-net-core-3/
