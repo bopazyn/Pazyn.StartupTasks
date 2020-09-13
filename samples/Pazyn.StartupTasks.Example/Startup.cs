@@ -50,6 +50,9 @@ namespace Pazyn.StartupTasks.Example
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks()
+                .AddStartupTasks();
+
             services.AddStartupTasks()
                 .AddStartupTask(sp => new GreetUserStartupTask("Alice"), sti =>
                 {
@@ -69,6 +72,7 @@ namespace Pazyn.StartupTasks.Example
             app.UseStartupTasks();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapGet("/", context => context.Response.WriteAsync("The route isn't blocked"));
                 endpoints.MapGet("/blocking", context => context.Response.WriteAsync("The route is blocked")).RequireStartupTask();
             });
