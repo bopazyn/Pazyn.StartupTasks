@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -17,10 +16,7 @@ namespace Pazyn.StartupTasks
             services.TryAddSingleton<IStartupTaskItemsCollection>(startupTaskItemsCollection);
             services.TryAddSingleton<IStartupTaskBuilder>(startupTaskBuilder);
 
-            if (services.All(x => x.ImplementationType != typeof(StartupTaskHostedService)))
-            {
-                services.AddHostedService<StartupTaskHostedService>();
-            }
+            services.AddHostedService<StartupTaskHostedService>();
 
             return services
                 .BuildServiceProvider(new ServiceProviderOptions
