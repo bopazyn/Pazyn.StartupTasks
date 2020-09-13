@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace Pazyn.StartupTasks.Tests
@@ -7,22 +8,24 @@ namespace Pazyn.StartupTasks.Tests
     public class StartupTasksBuilderTests
     {
         [Fact]
-        public void Decorate_DecoratesLastItem()
+        public void Registering_Items_With_Decorators()
         {
             var services = new ServiceCollection();
             services.AddStartupTasks()
-                .AddStartupTask<EmptyStartupTask>()
-                .Decorate<EmptyStartupTaskDecorator1>()
-                .Decorate<EmptyStartupTaskDecorator2>()
-                .AddStartupTask<AnotherEmptyStartupTask>();
+                .AddStartupTask<EmptyStartupTask1>()
+                .AddStartupTask<EmptyStartupTask2>(sti =>
+                {
+                    sti.Decorate<EmptyStartupTaskDecorator1>();
+                    sti.Decorate<EmptyStartupTaskDecorator2>();
+                });
 
             var serviceProvider = services.BuildServiceProvider();
-            var startupTaskItemsCollection = serviceProvider.GetRequiredService<IStartupTaskItemsCollection>();
-            var startupTasks = startupTaskItemsCollection.Select(x => x.TaskFactory(serviceProvider)).ToArray();
+            var options = serviceProvider.GetRequiredService<IOptions<StartupTaskContext>>();
+            var startupTasks = options.Value.Items.Select(x => x.TaskFactory(serviceProvider)).ToArray();
 
             Assert.Collection(startupTasks,
-                startupTask => Assert.IsType<EmptyStartupTaskDecorator2>(startupTask),
-                startupTask => Assert.IsType<AnotherEmptyStartupTask>(startupTask));
+                startupTask => Assert.IsType<EmptyStartupTask1>(startupTask),
+                startupTask => Assert.IsType<EmptyStartupTaskDecorator2>(startupTask));
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Pazyn.StartupTasks
 {
-    public class StartupTaskContext
+    internal class StartupTaskContext
     {
+        public ICollection<StartupTaskItem> Items { get; } = new HashSet<StartupTaskItem>();
+
         private Object Object { get; } = new Object();
         private Int32 RegisteredStartupTasksCount { get; set; }
         private Int32 CompletedStartupTasksCount { get; set; }

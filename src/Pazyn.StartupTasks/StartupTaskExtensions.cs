@@ -8,22 +8,12 @@ namespace Pazyn.StartupTasks
     {
         public static IStartupTaskBuilder AddStartupTasks(this IServiceCollection services)
         {
-            var startupTaskItemsCollection = new StartupTaskItemsCollection();
-            var sharedContext = new StartupTaskContext();
-            var startupTaskBuilder = new StartupTaskBuilder(startupTaskItemsCollection, sharedContext);
-
-            services.TryAddSingleton(sharedContext);
-            services.TryAddSingleton<IStartupTaskItemsCollection>(startupTaskItemsCollection);
+            var startupTaskBuilder = new StartupTaskBuilder(services);
             services.TryAddSingleton<IStartupTaskBuilder>(startupTaskBuilder);
-
             services.AddHostedService<StartupTaskHostedService>();
 
-            return services
-                .BuildServiceProvider(new ServiceProviderOptions
-                {
-                    ValidateScopes = false
-                })
-                .GetRequiredService<IStartupTaskBuilder>();
+            services.Configure<StartupTaskContext>(options => { });
+            return startupTaskBuilder;
         }
 
         public static IHealthChecksBuilder AddStartupTasks(this IHealthChecksBuilder builder) =>
