@@ -2,7 +2,7 @@
 {
     public static class StartupTaskExtensions
     {
-        public static IStartupTaskBuilder AddOptionValidation<T>(this IStartupTaskBuilder startupTaskBuilder) where T : class, new() =>
-            startupTaskBuilder.AddStartupTask<OptionValidationStartupTask<T>>();
+        public static IStartupTasksBuilder AddOptionValidation<T>(this IStartupTasksBuilder startupTasksBuilder) where T : class, new() =>
+            startupTasksBuilder.AddStartupTask<OptionValidationStartupTask<T>>();
     }
 }

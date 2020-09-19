@@ -10,13 +10,13 @@ using Microsoft.Extensions.Options;
 
 namespace Pazyn.StartupTasks
 {
-    internal class StartupTaskHostedService : IHostedService
+    internal class StartupTasksHostedService : IHostedService
     {
         private IServiceProvider ServiceProvider { get; }
-        private ILogger<StartupTaskHostedService> Logger { get; }
-        private IOptions<StartupTaskContext> StartupTaskContextOptions { get; }
+        private ILogger<StartupTasksHostedService> Logger { get; }
+        private IOptions<StartupTasksContext> StartupTaskContextOptions { get; }
 
-        public StartupTaskHostedService(IServiceProvider serviceProvider, ILogger<StartupTaskHostedService> logger, IOptions<StartupTaskContext> startupTaskContextOptions)
+        public StartupTasksHostedService(IServiceProvider serviceProvider, ILogger<StartupTasksHostedService> logger, IOptions<StartupTasksContext> startupTaskContextOptions)
         {
             ServiceProvider = serviceProvider;
             Logger = logger;

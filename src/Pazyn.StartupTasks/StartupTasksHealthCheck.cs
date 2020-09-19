@@ -7,9 +7,9 @@ namespace Pazyn.StartupTasks
 {
     internal class StartupTasksHealthCheck : IHealthCheck
     {
-        private IOptions<StartupTaskContext> Context { get; }
+        private IOptions<StartupTasksContext> Context { get; }
 
-        public StartupTasksHealthCheck(IOptions<StartupTaskContext> context)
+        public StartupTasksHealthCheck(IOptions<StartupTasksContext> context)
         {
             Context = context;
         }

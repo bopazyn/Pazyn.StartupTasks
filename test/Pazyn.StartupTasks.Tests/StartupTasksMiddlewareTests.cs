@@ -14,12 +14,12 @@ namespace Pazyn.StartupTasks.Tests
             context.Response.Body = new MemoryStream();
 
             
-            var startupTaskContext = new StartupTaskContext();
-            startupTaskContext.RegisterTask();
-            startupTaskContext.RegisterTask();
+            var startupTasksContext = new StartupTasksContext();
+            startupTasksContext.RegisterTask();
+            startupTasksContext.RegisterTask();
 
             var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.ProcessRequest(context, startupTaskContext);
+            await middleware.ProcessRequest(context, startupTasksContext);
 
             Assert.Equal(503, context.Response.StatusCode);
         }
@@ -30,14 +30,14 @@ namespace Pazyn.StartupTasks.Tests
             var context = new DefaultHttpContext();
             context.Response.Body = new MemoryStream();
 
-            var startupTaskContext = new StartupTaskContext();
-            startupTaskContext.RegisterTask();
-            startupTaskContext.RegisterTask();
-            startupTaskContext.MarkTaskAsComplete();
-            startupTaskContext.MarkTaskAsFailed();
+            var startupTasksContext = new StartupTasksContext();
+            startupTasksContext.RegisterTask();
+            startupTasksContext.RegisterTask();
+            startupTasksContext.MarkTaskAsComplete();
+            startupTasksContext.MarkTaskAsFailed();
 
             var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.ProcessRequest(context, startupTaskContext);
+            await middleware.ProcessRequest(context, startupTasksContext);
 
             Assert.Equal(500, context.Response.StatusCode);
         }
@@ -48,14 +48,14 @@ namespace Pazyn.StartupTasks.Tests
             var context = new DefaultHttpContext();
             context.Response.Body = new MemoryStream();
 
-            var startupTaskContext = new StartupTaskContext();
-            startupTaskContext.RegisterTask();
-            startupTaskContext.RegisterTask();
-            startupTaskContext.MarkTaskAsComplete();
-            startupTaskContext.MarkTaskAsComplete();
+            var startupTasksContext = new StartupTasksContext();
+            startupTasksContext.RegisterTask();
+            startupTasksContext.RegisterTask();
+            startupTasksContext.MarkTaskAsComplete();
+            startupTasksContext.MarkTaskAsComplete();
 
             var middleware = new StartupTasksMiddleware(null, httpContext => httpContext.Response.WriteAsync("Hello world!"));
-            await middleware.ProcessRequest(context, startupTaskContext);
+            await middleware.ProcessRequest(context, startupTasksContext);
 
             Assert.Equal(200, context.Response.StatusCode);
         }

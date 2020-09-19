@@ -3,13 +3,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Pazyn.StartupTasks
 {
-    public static class StartupTaskExtensions
+    public static class StartupTasksExtensions
     {
-        public static IStartupTaskBuilder AddStartupTasks(this IServiceCollection services)
+        public static IStartupTasksBuilder AddStartupTasks(this IServiceCollection services)
         {
-            services.AddHostedService<StartupTaskHostedService>();
-            services.Configure<StartupTaskContext>(options => { });
-            return new StartupTaskBuilder(services);
+            services.AddHostedService<StartupTasksHostedService>();
+            services.Configure<StartupTasksContext>(options => { });
+            return new StartupTasksBuilder(services);
         }
 
         public static IHealthChecksBuilder AddStartupTasks(this IHealthChecksBuilder builder) =>

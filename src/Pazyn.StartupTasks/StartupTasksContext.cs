@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Pazyn.StartupTasks
 {
-    internal class StartupTaskContext
+    internal class StartupTasksContext
     {
         public ICollection<StartupTaskItem> Items { get; } = new HashSet<StartupTaskItem>();
 

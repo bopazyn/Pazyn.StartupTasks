@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pazyn.StartupTasks", "src\P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pazyn.StartupTasks.Tests", "test\Pazyn.StartupTasks.Tests\Pazyn.StartupTasks.Tests.csproj", "{B3FD9B6B-FD35-437F-9192-BB00E40DA0DC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E2D499FB-4214-48A3-AFB0-0C4431A0A482}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{E2D499FB-4214-48A3-AFB0-0C4431A0A482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.Example", "samples\Pazyn.StartupTasks.Example\Pazyn.StartupTasks.Example.csproj", "{32224CC5-0B89-4AFC-9302-92493F629D6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pazyn.StartupTasks.Example", "examples\Pazyn.StartupTasks.Example\Pazyn.StartupTasks.Example.csproj", "{32224CC5-0B89-4AFC-9302-92493F629D6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.EntityFrameworkCore", "src\Pazyn.StartupTasks.EntityFrameworkCore\Pazyn.StartupTasks.EntityFrameworkCore.csproj", "{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pazyn.StartupTasks.EntityFrameworkCore", "src\Pazyn.StartupTasks.EntityFrameworkCore\Pazyn.StartupTasks.EntityFrameworkCore.csproj", "{3A0F7A0D-6A49-4E2E-8C6D-A06C1CFE4640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pazyn.StartupTasks.AspNetCore", "src\Pazyn.StartupTasks.AspNetCore\Pazyn.StartupTasks.AspNetCore.csproj", "{AE36F420-A797-403F-ABFB-71C6DB107DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pazyn.StartupTasks.AspNetCore", "src\Pazyn.StartupTasks.AspNetCore\Pazyn.StartupTasks.AspNetCore.csproj", "{AE36F420-A797-403F-ABFB-71C6DB107DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

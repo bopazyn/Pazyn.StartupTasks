@@ -20,7 +20,7 @@ namespace Pazyn.StartupTasks.Tests
                 });
 
             var serviceProvider = services.BuildServiceProvider();
-            var options = serviceProvider.GetRequiredService<IOptions<StartupTaskContext>>();
+            var options = serviceProvider.GetRequiredService<IOptions<StartupTasksContext>>();
             var startupTasks = options.Value.Items.Select(x => x.TaskFactory(serviceProvider)).ToArray();
 
             Assert.Collection(startupTasks,
