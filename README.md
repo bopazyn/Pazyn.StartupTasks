@@ -38,7 +38,6 @@ public class Startup
 }
 ```
 
-
 ## Acknowledgements
 
 The work was inspired by:
