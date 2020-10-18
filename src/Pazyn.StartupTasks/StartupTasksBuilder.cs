@@ -27,7 +27,7 @@ namespace Pazyn.StartupTasks
             {
                 options.RegisterTask();
                 options.Items.Add(startupTaskItem);
-                startupTaskItem.DisplayName = $"StartupTask #{options.Items.Count + 1}";
+                startupTaskItem.DisplayName ??= $"StartupTask #{options.Items.Count + 1}";
             });
 
             return this;
